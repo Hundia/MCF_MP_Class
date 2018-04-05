@@ -1,0 +1,8 @@
+
+running on train input:
+----------------------
+mcf data/train/input/inp.in
+
+running on ref input:
+--------------------
+mcf data/ref/input/inp.in
