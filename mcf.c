@@ -28,9 +28,6 @@ extern long min_impl_duration;
 network_t net;
 
 
-
-
-
 #ifdef _PROTO_
 long global_opt( void )
 #else
@@ -51,6 +48,7 @@ long global_opt( )
         printf( "active arcs                : %ld\n", net.m );
 #endif
 
+        //  TODO Eli & Menash - 2. Second Most consuming function
         primal_net_simplex( &net );
 
 
@@ -78,7 +76,7 @@ long global_opt( )
 #endif
         }
 
-
+        //  TODO Eli & Menash - 1. Most consuming function
         new_arcs = price_out_impl( &net );
 
 #ifdef REPORT

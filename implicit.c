@@ -149,8 +149,11 @@ void replace_weaker_arc( net, new, tail, head, cost, red_cost )
                     
     pos = 1;
     cmp = (new[1].flow > new[2].flow) ? 2 : 3;
+    //  TODO Eli & Menash - 1. Bad part in the function - replace_weaker_arc()
     while( cmp <= net->max_residual_new_m && red_cost < new[cmp-1].flow )
     {
+        printf("cmp: %d < net->max_residual_new_m: %d, red_cost: %d < new[cmp-1].flow: %d\n"
+                ,cmp, net->max_residual_new_m, red_cost, new[cmp-1].flow );
         new[pos-1].tail = new[cmp-1].tail;
         new[pos-1].head = new[cmp-1].head;
         new[pos-1].cost = new[cmp-1].cost;
@@ -165,10 +168,11 @@ void replace_weaker_arc( net, new, tail, head, cost, red_cost )
         pos = cmp;
         cmp *= 2;
         if( cmp + 1 <= net->max_residual_new_m )
+
             if( new[cmp-1].flow < new[cmp].flow )
                 cmp++;
     }
-    
+    fflush(stdout);
     return;
 }   
 
@@ -262,7 +266,8 @@ long price_out_impl( net )
     arcout = net->arcs;
     for( i = 0; i < trips && arcout[1].ident == FIXED; i++, arcout += 3 );
     first_of_sparse_list = (arc_t *)NULL;
-    for( ; i < trips; i++, arcout += 3 )
+    //  TODO: 111 !!! --> Actually, we can parralize this loop..!
+    for ( ; i < trips; i++, arcout += 3 )
     {
         if( arcout[1].ident != FIXED )
         {
@@ -301,6 +306,7 @@ long price_out_impl( net )
                     new_arcs++;                 
                 }
                 else if( (cost_t)arcnew[0].flow > red_cost )
+                    //  TODO Eli & Menash - 1.1 Second Most consuming function - Most consuming inside it
                     replace_weaker_arc( net, arcnew, tail, head, 
                                         arc_cost, red_cost );
             }
