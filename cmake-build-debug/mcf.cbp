@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="mcf"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/MSC/MultiThreading/mcf/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/MSC/MultiThreading/mcf/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mcf">
+				<Option output="D:/MSC/MultiThreading/mcf/bin/mcf.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="../bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 mcf"/>
+					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mcf/fast">
+				<Option output="D:/MSC/MultiThreading/mcf/bin/mcf.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="../bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/mingw-w64/x86_64-7.2.0-posix-seh-rt_v5-rev1/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 mcf/fast"/>
+					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/MSC/MultiThreading/mcf/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;D:/MSC/MultiThreading/mcf/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/MSC/MultiThreading/mcf/defines.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/implicit.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/implicit.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/mcf.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/mcf.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/mcflimit.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/mcfutil.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/mcfutil.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/output.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/output.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pbeampp.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pbeampp.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pbla.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pbla.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pflowup.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pflowup.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/prototyp.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/psimplex.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/psimplex.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pstart.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/pstart.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/readmin.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/readmin.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/treeup.c">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/treeup.h">
+			<Option target="mcf"/>
+		</Unit>
+		<Unit filename="D:/MSC/MultiThreading/mcf/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
