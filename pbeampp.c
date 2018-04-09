@@ -141,6 +141,8 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     }
     else
     {
+        #pragma omp parallel
+        #pragma omp for
         for( i = 2, next = 0; i <= B && i <= basket_size; i++ )
         {
             arc = perm[i]->a;
