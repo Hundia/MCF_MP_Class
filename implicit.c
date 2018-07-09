@@ -268,8 +268,7 @@ long price_out_impl( net )
     first_of_sparse_list = (arc_t *)NULL;
     //  TODO: 111 !!! --> Actually, we can parralize this loop..!
     //  Improoved alot this pragma .. :)
-    #pragma omp parallel
-    #pragma omp for
+
     for ( ; i < trips; i++, arcout += 3 )
     {
         if( arcout[1].ident != FIXED )

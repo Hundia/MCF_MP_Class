@@ -49,11 +49,13 @@ long primal_start_artificial( net )
     root->flow = ZERO;
 
     stop = (void *)net->stop_arcs;
+
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
         if( arc->ident != FIXED )
             arc->ident = AT_LOWER;
 
     arc = net->dummy_arcs;
+
     for( stop = (void *)net->stop_nodes; node != (node_t *)stop; arc++, node++ )
     {
         node->basic_arc = arc;

@@ -193,11 +193,14 @@ long read_min( net )
 
 
     net->clustfile[0] = (char)0;
-        
+    #pragma omp parallel
+    #pragma omp for
     for( i = 1; i <= net->n_trips; i++ )
     {
+        #pragma omp section
         net->arcs[3*i-1].cost = 
             (cost_t)((-2)*MAX(net->bigM,(long) BIGM));
+        #pragma omp section
         net->arcs[3*i-1].org_cost = 
             (cost_t)((-2)*(MAX(net->bigM,(long) BIGM)));
     }

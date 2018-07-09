@@ -37,6 +37,9 @@ void refresh_neighbour_lists( net )
         
 
     node = net->nodes;
+    #pragma omp parallel
+    #pragma omp for
+    #pragma omp section
     for( stop = (void *)net->stop_nodes; node < (node_t *)stop; node++ )
     {
         node->firstin = (arc_t *)NULL;
@@ -44,6 +47,7 @@ void refresh_neighbour_lists( net )
     }
     
     arc = net->arcs;
+    #pragma omp section
     for( stop = (void *)net->stop_arcs; arc < (arc_t *)stop; arc++ )
     {
         arc->nextout = arc->tail->firstout;
@@ -206,6 +210,8 @@ double flow_org_cost( net )
         node->basic_arc->flow = node->flow;
     
     stop = (void *)net->stop_arcs;
+    #pragma omp parallel
+    #pragma omp for
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
     {
         if( arc->flow )
@@ -303,9 +309,10 @@ long dual_feasible(  net )
     arc_t         *arc;
     arc_t         *stop     = net->stop_arcs;
     cost_t        red_cost;
-    
-    
 
+
+    #pragma omp parallel
+    #pragma omp for
     for( arc = net->arcs; arc < stop; arc++ )
     {
         red_cost = arc->cost - arc->tail->potential 

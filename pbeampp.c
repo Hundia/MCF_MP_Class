@@ -166,6 +166,8 @@ NEXT:
 
     arc = arcs + group_pos;
     cnt = 0;
+    #pragma omp parallel
+    #pragma omp for
     for( ; arc < stop_arcs; arc += nr_group )
     {
         cnt++;

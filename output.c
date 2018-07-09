@@ -47,7 +47,7 @@ long write_circulations( outfile, net )
         return -1;
 
     refresh_neighbour_lists( net );
-    
+
     for( block = net->nodes[net->n].firstout; block; block = block->nextout )
     {
         if( block->flow )
