@@ -20,12 +20,15 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 
 
-#define K 1500
-#define B  500
+#define K 300
+#define B  50
 
 #include "pbeampp.h"
 #include <processthreadsapi.h>
 #include <omp.h>
+
+
+
 
 
 #ifdef _PROTO_
