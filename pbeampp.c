@@ -110,7 +110,7 @@ void sort_basket( min, max )
 
 static long nr_group;
 static long group_pos;
-int cnt = 0;
+
 
 static long initialize = 1;
 
@@ -141,8 +141,6 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     }
     else
     {
-        #pragma omp parallel
-        #pragma omp for
         for( i = 2, next = 0; i <= B && i <= basket_size; i++ )
         {
             arc = perm[i]->a;
@@ -155,7 +153,7 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
                 perm[next]->cost = red_cost;
                 perm[next]->abs_cost = ABS(red_cost);
             }
-                }   
+        }
         basket_size = next;
         }
 
@@ -163,14 +161,9 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
 
 NEXT:
     /* price next group */
-
     arc = arcs + group_pos;
-    cnt = 0;
-    #pragma omp parallel
-    #pragma omp for
     for( ; arc < stop_arcs; arc += nr_group )
     {
-        cnt++;
         if( arc->ident > BASIC )
         {
             /* red_cost = bea_compute_red_cost( arc ); */
@@ -185,7 +178,6 @@ NEXT:
         }
         
     }
-//    printf("cnt: %d", cnt);
 
     if( ++group_pos == nr_group )
         group_pos = 0;

@@ -42,6 +42,7 @@ void refresh_neighbour_lists( net )
     #pragma omp section
     for( stop = (void *)net->stop_nodes; node < (node_t *)stop; node++ )
     {
+        //  reduction
         node->firstin = (arc_t *)NULL;
         node->firstout = (arc_t *)NULL;
     }
