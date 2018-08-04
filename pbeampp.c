@@ -104,11 +104,6 @@ void sort_basket( min, max )
         sort_basket( l, max ); 
 }
 
-
-
-
-
-
 static long nr_group;
 static long group_pos;
 
@@ -157,7 +152,7 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     {
 
         int numberOfGoodResults = 0;
-        #pragma omp
+        #pragma omp parallel
         #pragma omp for
         for( i = 2, next = 0; i <= B && i <= basket_size ; i ++ )
         {
