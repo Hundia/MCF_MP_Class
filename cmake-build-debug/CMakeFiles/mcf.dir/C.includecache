@@ -91,6 +91,10 @@ D:/MSC/MultiThreading/mcf/mcfutil.h
 D:/MSC/MultiThreading/mcf/pbeampp.c
 pbeampp.h
 D:/MSC/MultiThreading/mcf/pbeampp.h
+processthreadsapi.h
+-
+omp.h
+-
 
 D:/MSC/MultiThreading/mcf/pbeampp.h
 defines.h

@@ -20,14 +20,12 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 
 
-#define K 300
-#define B  50
-
-
+#define K 1500
+#define B  500
 
 #include "pbeampp.h"
-
-
+#include <processthreadsapi.h>
+#include <omp.h>
 
 
 #ifdef _PROTO_
@@ -111,8 +109,16 @@ void sort_basket( min, max )
 static long nr_group;
 static long group_pos;
 
-
+int max_basket_size = 0;
 static long initialize = 1;
+
+
+//  Struct to hold temporary results
+typedef struct resHolder {
+    arc_t* arc;
+    cost_t red_cost;
+    int arrIndex;
+} resHolder ;
 
 
 #ifdef _PROTO_
@@ -129,6 +135,11 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     long i, next, old_group_pos;
     arc_t *arc;
     cost_t red_cost;
+    resHolder resArr[MAX_BASKET_SIZE];
+    for (int j = 0; j < MAX_BASKET_SIZE; ++j) {
+        resArr[j].arrIndex = 0;
+        resArr[j].red_cost = 0;
+    }
 
     if( initialize )
     {
@@ -141,21 +152,51 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     }
     else
     {
-        for( i = 2, next = 0; i <= B && i <= basket_size; i++ )
+
+        int numberOfGoodResults = 0;
+        #pragma omp
+        #pragma omp for
+        for( i = 2, next = 0; i <= B && i <= basket_size ; i ++ )
         {
             arc = perm[i]->a;
             red_cost = arc->cost - arc->tail->potential + arc->head->potential;
             if( (red_cost < 0 && arc->ident == AT_LOWER)
                 || (red_cost > 0 && arc->ident == AT_UPPER) )
             {
-                next++;
-                perm[next]->a = arc;
-                perm[next]->cost = red_cost;
-                perm[next]->abs_cost = ABS(red_cost);
+                resArr[numberOfGoodResults].red_cost = red_cost;
+                resArr[numberOfGoodResults].arrIndex = ++next;
+                resArr[numberOfGoodResults].arc = arc;
+
+                numberOfGoodResults++;
             }
         }
-        basket_size = next;
+
+        #pragma omp parallel
+        #pragma omp for
+        for( i = 0, next = 0; i < numberOfGoodResults ; i ++ )
+        {
+
+                next++;
+                perm[resArr[i].arrIndex]->a = resArr[i].arc;
+                perm[resArr[i].arrIndex]->cost = resArr[i].red_cost;
+                perm[resArr[i].arrIndex]->abs_cost = ABS(resArr[i].red_cost);
+
         }
+
+        basket_size = next;
+
+
+//        if(basket_size != 49) {
+//            printf("max size: %d \n basket_size: %d\n", max_basket_size, basket_size);
+//        }
+//        if(basket_size > 100) {
+//            if(max_basket_size < basket_size) {
+//                max_basket_size = basket_size;
+//            }
+//            printf("max size: %d \n basket_size: %d\n", max_basket_size, basket_size);
+//        }
+
+    }
 
     old_group_pos = group_pos;
 

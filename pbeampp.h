@@ -24,6 +24,8 @@ Copyright (c) 2003-2005 Andreas Loebel.
 #define _PBEAMPP_H
 
 
+static const int MAX_BASKET_SIZE = 2000;
+static const int MAX_NUM_OF_PROCESSORS = 8;
 #include "defines.h"
 
 
