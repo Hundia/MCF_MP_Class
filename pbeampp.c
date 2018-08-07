@@ -20,8 +20,7 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 
 
-#define K 300
-#define B  50
+
 
 #include "pbeampp.h"
 #include <processthreadsapi.h>
@@ -111,12 +110,7 @@ int max_basket_size = 0;
 static long initialize = 1;
 
 
-//  Struct to hold temporary results
-typedef struct resHolder {
-    arc_t* arc;
-    cost_t red_cost;
-    int arrIndex;
-} resHolder ;
+
 
 
 #ifdef _PROTO_
@@ -152,9 +146,8 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
     {
 
         int numberOfGoodResults = 0;
-        #pragma omp parallel
-        #pragma omp for
-        for( i = 2, next = 0; i <= B && i <= basket_size ; i ++ )
+        #pragma omp parallel for
+        for( i = 2, next = 0; i <= B && i <= basket_size ; i++)
         {
             arc = perm[i]->a;
             red_cost = arc->cost - arc->tail->potential + arc->head->potential;
@@ -169,9 +162,8 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
             }
         }
 
-        #pragma omp parallel
-        #pragma omp for
-        for( i = 0, next = 0; i < numberOfGoodResults ; i ++ )
+        #pragma omp parallel for
+        for( i = 0, next = 0; i < numberOfGoodResults; i ++ )
         {
 
                 next++;
@@ -182,18 +174,6 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
         }
 
         basket_size = next;
-
-
-//        if(basket_size != 49) {
-//            printf("max size: %d \n basket_size: %d\n", max_basket_size, basket_size);
-//        }
-//        if(basket_size > 100) {
-//            if(max_basket_size < basket_size) {
-//                max_basket_size = basket_size;
-//            }
-//            printf("max size: %d \n basket_size: %d\n", max_basket_size, basket_size);
-//        }
-
     }
 
     old_group_pos = group_pos;

@@ -193,6 +193,7 @@ long read_min( net )
 
 
     net->clustfile[0] = (char)0;
+
     #pragma omp parallel
     #pragma omp for
     for( i = 1; i <= net->n_trips; i++ )

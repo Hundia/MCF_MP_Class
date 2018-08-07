@@ -23,9 +23,18 @@ Copyright (c) 2003-2005 Andreas Loebel.
 #ifndef _PBEAMPP_H
 #define _PBEAMPP_H
 
-
-static const int MAX_BASKET_SIZE = 2000;
+#define K 300
+#define B  50
+static const int MAX_BASKET_SIZE = B+K+1;
 static const int MAX_NUM_OF_PROCESSORS = 8;
+
+//  Struct to hold temporary results
+typedef struct resHolder {
+    arc_t* arc;
+    cost_t red_cost;
+    int arrIndex;
+} resHolder ;
+
 #include "defines.h"
 
 
