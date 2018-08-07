@@ -24,9 +24,10 @@ Copyright (c) 2003-2005 Andreas Loebel.
 #define _DEFINES_H
 
 #include <stdio.h>
-#ifndef _WIN32
-#include <unistd.h>
-#endif
+#include <Windows.h>
+//#ifndef _WIN32
+//#include <unistd.h>
+//#endif
 #include <math.h>
 #include <stdlib.h>
 #include <limits.h>

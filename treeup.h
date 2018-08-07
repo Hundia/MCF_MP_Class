@@ -27,8 +27,8 @@ Copyright (c) 2003-2005 Andreas Loebel.
 #include "defines.h"
 
 
-extern void update_tree _PROTO_(( long, long, flow_t, flow_t, node_t *, 
-                                  node_t *, node_t *, node_t *, node_t *, 
+extern void update_tree _PROTO_(( long, long, flow_t, flow_t, node_t *,
+                                  node_t *, node_t *, node_t *, node_t *,
                                   arc_t *, cost_t, flow_t ));
 
 

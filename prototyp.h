@@ -25,12 +25,12 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 
 #ifndef _PROTO_
-#if    defined(__STDC__) || defined(__cplusplus) \
-    || defined(WANT_STDC_PROTO) || defined(SPEC_CPU)
+//#if    defined(__STDC__) || defined(__cplusplus) \
+//    || defined(WANT_STDC_PROTO) || defined(SPEC_CPU)
 #define _PROTO_( args ) args
-#else
-#define _PROTO_( args ) 
-#endif
+//#else
+//#define _PROTO_( args ) 
+//#endif
 #endif
 
 

@@ -26,7 +26,6 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 #include "defines.h"
 
-
 extern void refresh_neighbour_lists _PROTO_(( network_t * ));
 extern long refresh_potential _PROTO_(( network_t * ));
 extern double flow_cost _PROTO_(( network_t * ));

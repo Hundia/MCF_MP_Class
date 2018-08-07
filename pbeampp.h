@@ -25,9 +25,14 @@ Copyright (c) 2003-2005 Andreas Loebel.
 
 #define K 300
 #define B  50
-static const int MAX_BASKET_SIZE = B+K+1;
-static const int MAX_NUM_OF_PROCESSORS = 8;
 
+
+#include "defines.h"
+
+static const int MAX_BASKET_SIZE = B+K+1;
+//static const int MAX_BASKET_SIZE = 50;
+
+static const int NUM_OF_THREADS = 8;
 //  Struct to hold temporary results
 typedef struct resHolder {
     arc_t* arc;
@@ -35,7 +40,6 @@ typedef struct resHolder {
     int arrIndex;
 } resHolder ;
 
-#include "defines.h"
 
 
 extern arc_t *primal_bea_mpp _PROTO_(( long, arc_t*, arc_t*, cost_t* ));

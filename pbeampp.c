@@ -142,41 +142,130 @@ arc_t *primal_bea_mpp( m, arcs, stop_arcs, red_cost_of_bea )
         basket_size = 0;
         initialize = 0;
     }
+#define NEW_CODE
+#ifdef NEW_CODE
     else
     {
+        //  Used to perserve the red cost condition result
+        int ConditionResultsArray[MAX_BASKET_SIZE];
+        for (int l = 0; l < MAX_BASKET_SIZE; ++l) {
+            ConditionResultsArray[l] = 0;
+        }
+        //  Used to keep track of where the results should be written into
+        //  For example if their were 3 results for the second thread, then
+        //  we know that in the results array we will write 3 serial results
+        //  in the position right after the first X results of the first thread.
+        int ResultsPerThread[NUM_OF_THREADS];
+        for (int k = 0; k < NUM_OF_THREADS; ++k) {
+            ResultsPerThread[k] = 0;
+        }
 
-        int numberOfGoodResults = 0;
-        #pragma omp parallel for
-        for( i = 2, next = 0; i <= B && i <= basket_size ; i++)
+        //  Set the minimum size that we will iterate, max size of it is B
+        //  Due to the iteration size in the original for loop  
+        int minimum_size_of_iteration;
+        if(B < basket_size)
+            minimum_size_of_iteration = B;
+        else
+            minimum_size_of_iteration = basket_size;
+
+        //  Calculate the samples per thread, according to the original for loop
+        //  its the minimum between B and basket size + 1 minus the 2 since
+        //  the iteration index started at 2
+        int samples_per_thread = (minimum_size_of_iteration - 2 + 1) / NUM_OF_THREADS;
+
+//        printf("Starting parralized first loop\n");
+        #pragma omp parallel for num_threads(NUM_OF_THREADS)
+        for (int j = 0; j < NUM_OF_THREADS; j++)
         {
-            arc = perm[i]->a;
-            red_cost = arc->cost - arc->tail->potential + arc->head->potential;
-            if( (red_cost < 0 && arc->ident == AT_LOWER)
-                || (red_cost > 0 && arc->ident == AT_UPPER) )
-            {
-                resArr[numberOfGoodResults].red_cost = red_cost;
-                resArr[numberOfGoodResults].arrIndex = ++next;
-                resArr[numberOfGoodResults].arc = arc;
+//            int tid = omp_get_thread_num();
+//            printf("Hello World from thread = %d\n", tid);
+//            if(j == NUM_OF_THREADS - 1) {
+//                samples_per_thread = minimum_size_of_iteration;
+//            }
+            //  Now each thread needs to run on his own samples.
+            //  The original loop started its iteration at 2, so we
+            //  need to calculate each thread start and end interval.
+            int thread_sample_start_index = j * samples_per_thread + 2;
 
-                numberOfGoodResults++;
+            // TODO (Eli): think about the following issue
+            // Here at the end index, their might be left overs that the last
+            //  thread might not take care of.
+            int thread_sample_end_index = thread_sample_start_index + samples_per_thread;
+
+//            printf("thread_sample_start_index: %d, thread_sample_end_index: %d\n", thread_sample_start_index, thread_sample_end_index);
+
+            for (int k = thread_sample_start_index; k < thread_sample_end_index; k++) {
+                //  Calculate arc and red_cost as it was in the original loop
+                //  with the relative k
+                arc = perm[k]->a;
+                red_cost = arc->cost - arc->tail->potential + arc->head->potential;
+
+                if((red_cost < 0 && arc->ident == AT_LOWER)
+                   || (red_cost > 0 && arc->ident == AT_UPPER)) {
+                    resArr[k].red_cost = red_cost;
+                    resArr[k].arc      = arc;
+                    //  Keep the if condition result
+                    ConditionResultsArray[k] = 1;
+                    //  Sum up the number of times the condition was met
+                    ResultsPerThread[j] += 1;
+                }
+                else {
+                    ConditionResultsArray[k] = 0;
+                }
+            }
+
+        }
+
+//        printf("end parralized first loop and starting second\n");
+        #pragma omp parallel for num_threads(NUM_OF_THREADS)
+        for (int j = 0; j < NUM_OF_THREADS; j++)
+        {
+            int CurrentThreadResultPositionTracker = 0;
+
+            //  This variable is used to point where the thread starts to write
+            //  results. For example if their was 3 good results for the first thread,
+            //  the second thread should start placing results in position 3 (starting from 0)
+            int ThreadResultStartingPosition = 0;
+            for (int n = 0; n < j; ++n) {
+                ThreadResultStartingPosition += ResultsPerThread[n];
+            }
+
+            //  Lets divide the samples to process between the
+            // threads as we did in the previos loop
+            int thread_sample_start_index = j * samples_per_thread + 2;
+            // TODO (Eli): This still might suffer from the same issue as in the previos loop
+            int thread_sample_end_index = thread_sample_start_index + samples_per_thread;
+
+            for (int k = thread_sample_start_index; k < thread_sample_end_index; k++) {
+
+                //  Each thread will check if in his relative position the red_cost
+                //  condition was met
+                if(1 == ConditionResultsArray[k]) {
+                    //  We increase by 1 first since in the original code they started placing results
+                    //  after the next++ (line 150 in the original code)
+                    CurrentThreadResultPositionTracker++;
+                    //  Result position is the starting position +
+                    int ResultPosition = ThreadResultStartingPosition + CurrentThreadResultPositionTracker;
+
+                    //  Write the results
+                    perm[ResultPosition]->a = resArr[k].arc;
+                    perm[ResultPosition]->cost = resArr[k].red_cost;
+                    perm[ResultPosition]->abs_cost = ABS(resArr[k].red_cost);
+                }
+            }
+
+            //  Now set the basket size to be the sum of all results
+            basket_size = 0;
+            for (int l = 0; l < NUM_OF_THREADS; ++l) {
+                basket_size = ResultsPerThread[l];
             }
         }
 
-        #pragma omp parallel for
-        for( i = 0, next = 0; i < numberOfGoodResults; i ++ )
-        {
-
-                next++;
-                perm[resArr[i].arrIndex]->a = resArr[i].arc;
-                perm[resArr[i].arrIndex]->cost = resArr[i].red_cost;
-                perm[resArr[i].arrIndex]->abs_cost = ABS(resArr[i].red_cost);
-
-        }
+//        printf("Ended second parralized loop\n");
 
         basket_size = next;
     }
-
-    old_group_pos = group_pos;
+#endif
 
 NEXT:
     /* price next group */
@@ -195,7 +284,7 @@ NEXT:
                 perm[basket_size]->abs_cost = ABS(red_cost);
             }
         }
-        
+
     }
 
     if( ++group_pos == nr_group )
@@ -207,12 +296,12 @@ NEXT:
     if( basket_size == 0 )
     {
         initialize = 1;
-        *red_cost_of_bea = 0; 
+        *red_cost_of_bea = 0;
         return NULL;
     }
-    
+
     sort_basket( 1, basket_size );
-    
+
     *red_cost_of_bea = perm[1]->cost;
     return( perm[1]->a );
 }
