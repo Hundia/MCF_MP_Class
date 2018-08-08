@@ -1,0 +1,266 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 32.02     11.89    11.89   334408     0.00     0.00  primal_bea_mpp
+ 20.97     19.68     7.79  6336742     0.00     0.00  replace_weaker_arc
+ 18.53     26.56     6.88        5     1.38     3.09  price_out_impl
+  8.86     29.84     3.29     1679     0.00     0.00  refresh_potential
+  4.47     31.50     1.66   334402     0.00     0.00  sort_basket
+  3.29     32.73     1.22                             _mcount_private
+  2.85     33.78     1.06                             __fentry__
+  2.48     34.70     0.92   334402     0.00     0.00  update_tree
+  2.11     35.49     0.79  8630892     0.00     0.00  insert_new_arc
+  2.05     36.25     0.76 233720751     0.00     0.00  bea_is_dual_infeasible
+  1.10     36.66     0.41   334402     0.00     0.00  primal_iminus
+  0.38     36.80     0.14        6     0.02     0.02  flow_cost
+  0.27     36.90     0.10        6     0.02     0.02  dual_feasible
+  0.24     36.99     0.09        4     0.02     0.03  suspend_impl
+  0.19     37.06     0.07        6     0.01     3.19  primal_net_simplex
+  0.08     37.09     0.03        7     0.00     0.00  refresh_neighbour_lists
+  0.03     37.10     0.01        6     0.00     0.00  primal_feasible
+  0.03     37.11     0.01        1     0.01     0.01  primal_start_artificial
+  0.03     37.12     0.01        1     0.01     0.01  read_min
+  0.03     37.13     0.01        1     0.01     0.01  write_circulations
+  0.00     37.13     0.00        2     0.00     0.00  resize_prob
+  0.00     37.13     0.00        1     0.00     0.00  getfree
+  0.00     37.13     0.00        1     0.00    34.82  global_opt
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.03% of 37.13 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     93.9    0.00   34.85                 main [1]
+                0.00   34.82       1/1           global_opt [2]
+                0.01    0.00       1/1           write_circulations [19]
+                0.01    0.00       1/1           read_min [22]
+                0.01    0.00       1/1           primal_start_artificial [21]
+                0.00    0.00       1/1           getfree [24]
+-----------------------------------------------
+                0.00   34.82       1/1           main [1]
+[2]     93.8    0.00   34.82       1         global_opt [2]
+                0.07   19.04       6/6           primal_net_simplex [3]
+                6.88    8.58       5/5           price_out_impl [4]
+                0.14    0.00       6/6           flow_cost [15]
+                0.09    0.02       4/4           suspend_impl [16]
+-----------------------------------------------
+                0.07   19.04       6/6           global_opt [2]
+[3]     51.5    0.07   19.04       6         primal_net_simplex [3]
+               11.89    2.42  334408/334408      primal_bea_mpp [5]
+                3.29    0.00    1679/1679        refresh_potential [7]
+                0.92    0.00  334402/334402      update_tree [11]
+                0.41    0.00  334402/334402      primal_iminus [14]
+                0.10    0.00       6/6           dual_feasible [17]
+                0.01    0.00       6/6           primal_feasible [20]
+-----------------------------------------------
+                6.88    8.58       5/5           global_opt [2]
+[4]     41.6    6.88    8.58       5         price_out_impl [4]
+                7.79    0.00 6336742/6336742     replace_weaker_arc [6]
+                0.79    0.00 8630892/8630892     insert_new_arc [12]
+                0.01    0.00       2/7           refresh_neighbour_lists [18]
+                0.00    0.00       2/2           resize_prob [23]
+-----------------------------------------------
+               11.89    2.42  334408/334408      primal_net_simplex [3]
+[5]     38.5   11.89    2.42  334408         primal_bea_mpp [5]
+                1.66    0.00  334402/334402      sort_basket [8]
+                0.76    0.00 233720751/233720751     bea_is_dual_infeasible [13]
+-----------------------------------------------
+                7.79    0.00 6336742/6336742     price_out_impl [4]
+[6]     21.0    7.79    0.00 6336742         replace_weaker_arc [6]
+-----------------------------------------------
+                3.29    0.00    1679/1679        primal_net_simplex [3]
+[7]      8.9    3.29    0.00    1679         refresh_potential [7]
+-----------------------------------------------
+                             13004486             sort_basket [8]
+                1.66    0.00  334402/334402      primal_bea_mpp [5]
+[8]      4.5    1.66    0.00  334402+13004486 sort_basket [8]
+                             13004486             sort_basket [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      3.3    1.22    0.00                 _mcount_private [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[10]     2.9    1.06    0.00                 __fentry__ [10]
+-----------------------------------------------
+                0.92    0.00  334402/334402      primal_net_simplex [3]
+[11]     2.5    0.92    0.00  334402         update_tree [11]
+-----------------------------------------------
+                0.79    0.00 8630892/8630892     price_out_impl [4]
+[12]     2.1    0.79    0.00 8630892         insert_new_arc [12]
+-----------------------------------------------
+                0.76    0.00 233720751/233720751     primal_bea_mpp [5]
+[13]     2.0    0.76    0.00 233720751         bea_is_dual_infeasible [13]
+-----------------------------------------------
+                0.41    0.00  334402/334402      primal_net_simplex [3]
+[14]     1.1    0.41    0.00  334402         primal_iminus [14]
+-----------------------------------------------
+                0.14    0.00       6/6           global_opt [2]
+[15]     0.4    0.14    0.00       6         flow_cost [15]
+-----------------------------------------------
+                0.09    0.02       4/4           global_opt [2]
+[16]     0.3    0.09    0.02       4         suspend_impl [16]
+                0.02    0.00       4/7           refresh_neighbour_lists [18]
+-----------------------------------------------
+                0.10    0.00       6/6           primal_net_simplex [3]
+[17]     0.3    0.10    0.00       6         dual_feasible [17]
+-----------------------------------------------
+                0.00    0.00       1/7           write_circulations [19]
+                0.01    0.00       2/7           price_out_impl [4]
+                0.02    0.00       4/7           suspend_impl [16]
+[18]     0.1    0.03    0.00       7         refresh_neighbour_lists [18]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[19]     0.0    0.01    0.00       1         write_circulations [19]
+                0.00    0.00       1/7           refresh_neighbour_lists [18]
+-----------------------------------------------
+                0.01    0.00       6/6           primal_net_simplex [3]
+[20]     0.0    0.01    0.00       6         primal_feasible [20]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[21]     0.0    0.01    0.00       1         primal_start_artificial [21]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[22]     0.0    0.01    0.00       1         read_min [22]
+-----------------------------------------------
+                0.00    0.00       2/2           price_out_impl [4]
+[23]     0.0    0.00    0.00       2         resize_prob [23]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[24]     0.0    0.00    0.00       1         getfree [24]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [10] __fentry__              [4] price_out_impl          [7] refresh_potential
+   [9] _mcount_private         [5] primal_bea_mpp          [6] replace_weaker_arc
+  [13] bea_is_dual_infeasible [20] primal_feasible        [23] resize_prob
+  [17] dual_feasible          [14] primal_iminus           [8] sort_basket
+  [15] flow_cost               [3] primal_net_simplex     [16] suspend_impl
+  [24] getfree                [21] primal_start_artificial [11] update_tree
+   [2] global_opt             [22] read_min               [19] write_circulations
+  [12] insert_new_arc         [18] refresh_neighbour_lists

@@ -194,8 +194,7 @@ long read_min( net )
 
     net->clustfile[0] = (char)0;
 
-    #pragma omp parallel
-    #pragma omp for
+    #pragma omp parallel for num_threads(8)
     for( i = 1; i <= net->n_trips; i++ )
     {
         net->arcs[3*i-1].cost =

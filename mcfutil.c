@@ -34,19 +34,16 @@ void refresh_neighbour_lists( net )
     node_t *node;
     arc_t *arc;
     void *stop;
-        
+
 
     node = net->nodes;
-
     for( stop = (void *)net->stop_nodes; node < (node_t *)stop; node++ )
     {
-        //  reduction
         node->firstin = (arc_t *)NULL;
         node->firstout = (arc_t *)NULL;
     }
-    
-    arc = net->arcs;
 
+    arc = net->arcs;
     for( stop = (void *)net->stop_arcs; arc < (arc_t *)stop; arc++ )
     {
         arc->nextout = arc->tail->firstout;
@@ -54,9 +51,18 @@ void refresh_neighbour_lists( net )
         arc->nextin = arc->head->firstin;
         arc->head->firstin = arc;
     }
-    
+
     return;
 }
+
+
+
+
+
+
+
+
+
 
 #ifdef _PROTO_
 long refresh_potential( network_t *net )
@@ -68,7 +74,7 @@ long refresh_potential( net )
     node_t *node, *tmp;
     node_t *root = net->nodes;
     long checksum = 0;
-    
+
 
     root->potential = (cost_t) -MAX_ART_COST;
     tmp = node = root->child;
@@ -87,7 +93,7 @@ long refresh_potential( net )
             tmp = node;
             node = node->child;
         }
-        
+
         node = tmp;
 
         while( node->pred )
@@ -102,9 +108,15 @@ long refresh_potential( net )
                 node = node->pred;
         }
     }
-    
+
     return checksum;
 }
+
+
+
+
+
+
 
 #ifdef _PROTO_
 double flow_cost( network_t *net )
@@ -116,10 +128,10 @@ double flow_cost( net )
     arc_t *arc;
     node_t *node;
     void *stop;
-    
+
     long fleet = 0;
     cost_t operational_cost = 0;
-    
+
 
     stop = (void *)net->stop_arcs;
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
@@ -133,9 +145,8 @@ double flow_cost( net )
     stop = (void *)net->stop_nodes;
     for( node = net->nodes, node++; node != (node_t *)stop; node++ )
         node->basic_arc->flow = node->flow;
-    
-    stop = (void *)net->stop_arcs;
 
+    stop = (void *)net->stop_arcs;
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
     {
         if( arc->flow )
@@ -151,8 +162,9 @@ double flow_cost( net )
                     operational_cost += arc->cost;
             }
         }
+
     }
-    
+
     return (double)fleet * (double)net->bigM + (double)operational_cost;
 }
 
@@ -175,10 +187,10 @@ double flow_org_cost( net )
     arc_t *arc;
     node_t *node;
     void *stop;
-    
+
     long fleet = 0;
     cost_t operational_cost = 0;
-    
+
 
     stop = (void *)net->stop_arcs;
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
@@ -192,10 +204,8 @@ double flow_org_cost( net )
     stop = (void *)net->stop_nodes;
     for( node = net->nodes, node++; node != (node_t *)stop; node++ )
         node->basic_arc->flow = node->flow;
-    
+
     stop = (void *)net->stop_arcs;
-
-
     for( arc = net->arcs; arc != (arc_t *)stop; arc++ )
     {
         if( arc->flow )
@@ -212,7 +222,7 @@ double flow_org_cost( net )
             }
         }
     }
-    
+
     return (double)fleet * (double)net->bigM + (double)operational_cost;
 }
 
@@ -238,7 +248,7 @@ long primal_feasible( net )
     arc_t *stop_dummy = net->stop_dummy;
     arc_t *arc;
     flow_t flow;
-    
+
 
     node = net->nodes;
     stop = (void *)net->stop_nodes;
@@ -259,7 +269,7 @@ long primal_feasible( net )
         else
         {
             if( flow < (flow_t)(-net->feas_tol)
-               || flow - (flow_t)1 > (flow_t)net->feas_tol )
+                || flow - (flow_t)1 > (flow_t)net->feas_tol )
             {
                 printf( "PRIMAL NETWORK SIMPLEX: " );
                 printf( "basis primal infeasible (%ld)\n", flow );
@@ -268,9 +278,9 @@ long primal_feasible( net )
             }
         }
     }
-    
+
     net->feasible = 1;
-    
+
     return 0;
 }
 
@@ -294,15 +304,17 @@ long dual_feasible(  net )
     arc_t         *stop     = net->stop_arcs;
     cost_t        red_cost;
 
+
+
     for( arc = net->arcs; arc < stop; arc++ )
     {
-        red_cost = arc->cost - arc->tail->potential 
-            + arc->head->potential;
+        red_cost = arc->cost - arc->tail->potential
+                   + arc->head->potential;
         switch( arc->ident )
         {
-        case BASIC:
+            case BASIC:
 #ifdef AT_ZERO
-        case AT_ZERO:
+                case AT_ZERO:
             if( ABS(red_cost) > (cost_t)net->feas_tol )
 #ifdef DEBUG
                 printf("%d %d %d %ld\n", arc->tail->number, arc->head->number,
@@ -310,39 +322,38 @@ long dual_feasible(  net )
 #else
                 goto DUAL_INFEAS;
 #endif
-            
+
             break;
 #endif
-        case AT_LOWER:
-            if( red_cost < (cost_t)-net->feas_tol )
-
+            case AT_LOWER:
+                if( red_cost < (cost_t)-net->feas_tol )
 #ifdef DEBUG
-                printf("%d %d %d %ld\n", arc->tail->number, arc->head->number,
+                    printf("%d %d %d %ld\n", arc->tail->number, arc->head->number,
                        arc->ident, red_cost );
 #else
-                goto DUAL_INFEAS;
+                    goto DUAL_INFEAS;
 #endif
 
-            break;
-        case AT_UPPER:
-            if( red_cost > (cost_t)net->feas_tol )
+                break;
+            case AT_UPPER:
+                if( red_cost > (cost_t)net->feas_tol )
 #ifdef DEBUG
-                printf("%d %d %d %ld\n", arc->tail->number, arc->head->number,
+                    printf("%d %d %d %ld\n", arc->tail->number, arc->head->number,
                        arc->ident, red_cost );
 #else
-                goto DUAL_INFEAS;
+                    goto DUAL_INFEAS;
 #endif
 
-            break;
-        case FIXED:
-        default:
-            break;
+                break;
+            case FIXED:
+            default:
+                break;
         }
     }
-    
+
     return 0;
-    
-DUAL_INFEAS:
+
+    DUAL_INFEAS:
     fprintf( stderr, "DUAL NETWORK SIMPLEX: " );
     fprintf( stderr, "basis dual infeasible\n" );
     return 1;
@@ -355,14 +366,14 @@ DUAL_INFEAS:
 
 
 #ifdef _PROTO_
-long getfree( 
-            network_t *net
-            )
+long getfree(
+        network_t *net
+)
 #else
 long getfree( net )
      network_t *net;
 #endif
-{  
+{
     FREE( net->nodes );
     FREE( net->arcs );
     FREE( net->dummy_arcs );
